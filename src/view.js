@@ -1,6 +1,6 @@
 export default class View {
 	static colors = {
-		'1': 'cian',
+		'1': 'teal',
 		'2': 'blue',
 		'3': 'orange',
 		'4': 'yellow',
@@ -55,7 +55,7 @@ export default class View {
 
 	renderPauseScreen() {
 		this.context.fillStyle = 'rgba(0, 0, 0, 0.75)';
-		this.context.strokeRect(0, 0, this.width, this.height);
+		this.context.fillRect(0, 0, this.width, this.height);
 
 		this.renderScreen('Press ENTER to Resume');
 	}
@@ -66,6 +66,7 @@ export default class View {
 		this.renderScreen('GAME OVER', 48);
 
 		this.context.fillText(`Score: ${score}`, this.width / 2, this.height / 2);
+		this.context.fillText(`Press ENTER to Restart`, this.width / 2, this.height / 2 + 48);
 	}
 
 	renderScreen(text, height = 0) {

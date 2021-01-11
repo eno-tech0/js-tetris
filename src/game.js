@@ -9,10 +9,9 @@ export default class Game {
 	constructor(columns, rows) {
 		this.columns = columns;
 		this.rows = rows;
-		this.playfield = this.createPlayField();
+		this.reset();
 	}
-	score = 0;
-	lines = 0;
+
 	blocks = [
 		[
 			[0, 0, 0],
@@ -51,9 +50,7 @@ export default class Game {
 			[0, 7, 7, 0],
 			[0, 0, 0, 0]
 		],
-	]
-	activePiece = this.createPiece();
-	nextPiece = this.createPiece();
+	];
 
 	get level() {
 		return Math.floor(this.lines * 0.1);
@@ -84,8 +81,18 @@ export default class Game {
 			score: this.score,
 			lines: this.lines,
 			nextPiece: this.nextPiece,
+			isGameOver: this.topOut,
 			playfield
 		}
+	}
+
+	reset() {
+		this.score = 0;
+		this.lines = 0;
+		this.topOut = false;
+		this.playfield = this.createPlayField();
+		this.activePiece = this.createPiece();
+		this.nextPiece = this.createPiece();
 	}
 
 	createPlayField() {
@@ -107,7 +114,7 @@ export default class Game {
 
 		return {
 			x: Math.floor(((10 || this.rows) - block[0].length) / 2),
-			y: 0,
+			y: -1,
 			block
 		}
 	}
@@ -127,6 +134,8 @@ export default class Game {
 		}
 	}
 	movePieceDown() {
+		if (this.topOut) return;
+
 		this.activePiece.y += 1;
 
 		if (this.hasCollision()) {
@@ -134,6 +143,10 @@ export default class Game {
 			this.lockPiece();
 			this.clearLines();
 			this.updatePieces();
+		}
+
+		if (this.hasCollision()) {
+			this.topOut = true;
 		}
 	}
 
