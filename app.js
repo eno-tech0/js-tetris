@@ -8,10 +8,5 @@ window.addEventListener('DOMContentLoaded', () => {
 	const game = new Game(20, 10);
 	const view = new View(root, 480, 640, 20, 10);
 	const controller = new Controller(game, view);
-	
-	window.game = game;
-	window.view = view;
-	window.controller = controller;
-
 })
 

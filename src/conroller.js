@@ -43,7 +43,7 @@ export default class Controller {
 	}
 
 	startTimer() {
-		const speed = 1000 - this.game.getState().level * 100;
+		const speed = 500 - this.game.getState().level * 100;
 		if (!this.timerId) {
 			this.timerId = setInterval(() => {
 				this.updateForTime();
